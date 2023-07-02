@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+charge:
+  handlers:
+    CHARGE_1:
+      - com.laiwenqiang.core.handlers.LogSaveHandler
+      - com.laiwenqiang.core.handlers.CarInfoQueryHandler
+      - com.laiwenqiang.core.handlers.UserPayHandler
+    CHARGE_2:
+      - com.laiwenqiang.core.handlers.UserPayHandler
+      - com.laiwenqiang.core.handlers.LogSaveHandler
+
+payment:
+  handlers:
+    PAYMENT_1:
+      - com.laiwenqiang.core.handlers.LogSaveHandler
+      - com.laiwenqiang.core.handlers.UserPayHandler
+    PAYMENT_2:
+      - com.laiwenqiang.core.handlers.UserPayHandler
+      - com.laiwenqiang.core.handlers.LogSaveHandler

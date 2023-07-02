@@ -1,0 +1,61 @@
+@startuml
+interface Handler {
+    + boolean process(EventContext context)
+}
+
+interface HandlerChain {
+    + void setNext(HandlerChain handlerChain)
+    + HandlerChain getNext()
+    + boolean execute()
+}
+
+class DefaultHandlerChain implements HandlerChain {
+    - Handler handler
+    - HandlerChain next
+    + void setNext(HandlerChain handlerChain)
+    + HandlerChain getNext()
+    + boolean execute()
+}
+
+interface Pipeline {
+	+ void addHandlerChain(HandlerChain handlerChain)
+	+ void start(EventContext context)
+}
+
+class ApplicationPipeline implements Pipeline {
+	- HandlerChain first
+	+ void addHandlerChain(HandlerChain handlerChain)
+	+ start(EventContext context)
+}
+
+interface EventContext {
+    + String getBizCode()
+    + EventRequest getRequest()
+    + EventResponse getResponse()
+}
+
+abstract class AbstractEventContext implements EventContext {
+    - String bizCode
+    - EventRequest request
+    - EventResponse response
+    + EventRequest getRequest()
+    + EventResponse getResponse()
+}
+
+interface EventRequest {
+    + String getBizCode()
+}
+
+interface EventResponse {
+    + String getStatus()
+}
+
+ApplicationPipeline  --left->  HandlerChain
+ApplicationPipeline  ..right.> EventContext
+note on link: 在execute方法中依赖
+DefaultHandlerChain --right-> Handler
+
+AbstractEventContext --left-> EventRequest
+AbstractEventContext --right-> EventResponse
+
+@enduml

@@ -1,0 +1,14 @@
+### 新增充电请求
+POST http://localhost:8080/charging
+Content-Type: application/json
+
+{
+  "bizCode": "CHARGE_1",
+  "userId": 999,
+  "stakeId": 888,
+  "carNo": "粤B123456",
+  "extra": "other info"
+}
+
+### 查询充电状态
+GET http://localhost:8080/charging/12345/status
